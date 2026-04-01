@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt pack 2</title>
 <style>
-:root{--bg:#140d10;--surface:#1e1218;--surface2:#281822;--border:#3d2030;--accent:#ff6b9d;--accent2:#ffb3d0;--text:#f0e0e8;--muted:#907080;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
+:root{--bg:#18120e;--surface:#221810;--surface2:#2c2018;--border:#3d2e22;--accent:#f5a623;--accent2:#ff7055;--text:#f0e8de;--muted:#8a7060;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;min-height:100vh}
@@ -94,7 +94,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(-
 <main id="main"></main>
 <footer id="footer"></footer>
 <script>
-var PACK={"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#140d10","surface":"#1e1218","surface2":"#281822","border":"#3d2030","accent":"#ff6b9d","accent2":"#ffb3d0","text":"#f0e0e8","muted":"#907080"},"categories":[{"name":"Category 1","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"New Category","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
+var PACK={"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#18120e","surface":"#221810","surface2":"#2c2018","border":"#3d2e22","accent":"#f5a623","accent2":"#ff7055","text":"#f0e8de","muted":"#8a7060"},"categories":[{"name":"Category 1","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"New Category","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
 var STORAGE_KEY='pp_'+PACK.id;
 var subject=PACK.defaultSubject,currentTab='all',favourites=new Set(),activeMods={};
 
@@ -310,28 +310,47 @@ function fallbackCopy(text,cb){
 
 function updateBadge(){document.getElementById('fav-badge').textContent=favourites.size;}
 function exportPDF(){
-  var total=PACK.categories.reduce(function(n,c){return n+c.prompts.length;},0);
-  var t=PACK.theme;
+  var printCats=[];
+  if(currentTab==='favourites'){
+    var byCat={};
+    PACK.categories.forEach(function(cat,ci){
+      cat.prompts.forEach(function(p){
+        if(favourites.has(p.id)){
+          if(!byCat[ci])byCat[ci]={cat:cat,ci:ci,prompts:[]};
+          byCat[ci].prompts.push(p);
+        }
+      });
+    });
+    printCats=Object.values(byCat);
+  }else{
+    printCats=PACK.categories.map(function(cat,ci){return{cat:cat,ci:ci,prompts:cat.prompts};});
+  }
+  var total=printCats.reduce(function(n,g){return n+g.prompts.length;},0);
   var rows='';
-  PACK.categories.forEach(function(cat){
+  printCats.forEach(function(group){
+    var cat=group.cat;var ci=group.ci;
     var modHTML='';
     if(cat.modifiers&&cat.modifiers.length){
       modHTML='<div class="mods"><span class="mod-label">Modifiers<\/span>'+
-        cat.modifiers.map(function(m){return '<span class="mod-chip">'+esc(m)+'<\/span>';}).join('')+
-        '<\/div>';
+        cat.modifiers.map(function(m){
+          var isActive=activeMods[ci]&&activeMods[ci].has(m);
+          return '<span class="mod-chip'+(isActive?' active':'')+'">'+ esc(m)+'<\/span>';
+        }).join('')+'<\/div>';
     }
-    var promptsHTML=cat.prompts.map(function(p){
-      return '<div class="prompt-row">'+esc(resolveText(p.template,PACK.categories.indexOf(cat)))+'<\/div>';
-    }).join('');
-    rows+='<div class="cat-section"><div class="cat-head"><span class="cat-name">'+esc(cat.name)+'<\/span><span class="cat-count">'+cat.prompts.length+' prompt'+(cat.prompts.length!==1?'s':'')+'<\/span><\/div>'+modHTML+promptsHTML+'<\/div>';
+    rows+='<div class="cat-section"><div class="cat-head"><span class="cat-name">'+esc(cat.name)+'<\/span><span class="cat-count">'+group.prompts.length+' prompt'+(group.prompts.length!==1?'s':'')+(currentTab==='favourites'?' saved':'')+'<\/span><\/div>'+modHTML+
+      group.prompts.map(function(p){return '<div class="prompt-row">'+esc(resolveText(p.template,ci))+'<\/div>';}).join('')+
+      '<\/div>';
   });
+  var t=PACK.theme;
+  var subjectNote=subject&&subject!==PACK.defaultSubject?' \u00b7 subject: "'+esc(subject)+'"':'';
   var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+esc(PACK.title)+'<\/title><style>'+
-    '@page{margin:16mm 14mm}'+
+    '@page{margin:0}'+
     '*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}'+
-    'body{background:'+t.bg+';color:'+t.text+';font-family:ui-monospace,"SF Mono","Cascadia Mono","Fira Mono",monospace;font-size:11px;line-height:1.6}'+
+    'body{background:'+t.bg+';color:'+t.text+';font-family:ui-monospace,"SF Mono","Cascadia Mono","Fira Mono",monospace;font-size:11px;line-height:1.6;padding:14mm 16mm 20mm}'+
     '.header{border-bottom:2.5px solid '+t.accent+';padding-bottom:14px;margin-bottom:20px}'+
     '.pack-eyebrow{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:'+t.accent+';margin-bottom:6px}'+
     '.pack-title{font-family:Georgia,"Times New Roman",serif;font-size:26px;font-weight:700;color:'+t.text+';letter-spacing:-.3px;margin-bottom:6px;line-height:1.2}'+
+    '.fav-badge{display:inline-block;font-size:11px;color:'+t.accent+';border:1px solid '+t.accent+';border-radius:4px;padding:2px 8px;margin-left:10px;vertical-align:middle}'+
     '.pack-tagline{font-size:11px;color:'+t.muted+';margin-bottom:12px}'+
     '.pack-stats{display:flex;gap:20px}'+
     '.stat-num{font-size:18px;font-weight:700;color:'+t.accent+';font-family:Georgia,serif;line-height:1}'+
@@ -343,56 +362,24 @@ function exportPDF(){
     '.mods{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-bottom:8px;padding:6px 10px;background:'+t.surface+';border:1px solid '+t.border+';border-radius:6px}'+
     '.mod-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:'+t.muted+';white-space:nowrap;margin-right:2px}'+
     '.mod-chip{background:'+t.surface2+';border:1px solid '+t.border+';border-radius:20px;font-size:9px;padding:2px 8px;color:'+t.muted+'}'+
+    '.mod-chip.active{border-color:'+t.accent2+';color:'+t.accent2+';background:'+t.surface+'}'+
     '.prompt-row{background:'+t.surface+';border:1px solid '+t.border+';border-radius:6px;padding:8px 11px;margin-bottom:5px;font-size:11px;color:'+t.text+';break-inside:avoid;line-height:1.6}'+
-    '.footer-bar{position:fixed;bottom:0;left:0;right:0;font-size:9px;color:'+t.muted+';border-top:1px solid '+t.border+';padding:5px 0;display:flex;justify-content:space-between;background:'+t.bg+'}'+
+    '.footer-bar{position:fixed;bottom:0;left:0;right:0;font-size:9px;color:'+t.muted+';border-top:1px solid '+t.border+';padding:5px 16mm;display:flex;justify-content:space-between;background:'+t.bg+'}'+
     '<\/style><\/head><body>'+
     '<div class="header">'+
       '<div class="pack-eyebrow">by '+esc(PACK.author)+'<\/div>'+
-      '<div class="pack-title">'+esc(PACK.title)+'<\/div>'+
-      (PACK.tagline?'<div class="pack-tagline">'+esc(PACK.tagline)+'<\/div>':'')+
+      '<div class="pack-title">'+esc(PACK.title)+(currentTab==='favourites'?'<span class="fav-badge">\u2605 Favourites<\/span>':'')+'<\/div>'+
+      (PACK.tagline?'<div class="pack-tagline">'+esc(PACK.tagline)+subjectNote+'<\/div>':subjectNote?'<div class="pack-tagline">'+subjectNote.slice(3)+'<\/div>':'')+
       '<div class="pack-stats">'+
-        '<div><div class="stat-num">'+total+'<\/div><div class="stat-label">Prompts<\/div><\/div>'+
-        '<div><div class="stat-num">'+PACK.categories.length+'<\/div><div class="stat-label">Categories<\/div><\/div>'+
-        '<div><div class="stat-num">'+PACK.categories.reduce(function(n,c){return n+(c.modifiers||[]).length;},0)+'<\/div><div class="stat-label">Modifiers<\/div><\/div>'+
+        '<div><div class="stat-num">'+total+'<\/div><div class="stat-label">'+(currentTab==='favourites'?'Saved':'Prompts')+'<\/div><\/div>'+
+        '<div><div class="stat-num">'+printCats.length+'<\/div><div class="stat-label">Categories<\/div><\/div>'+
       '<\/div>'+
     '<\/div>'+
     rows+
-    '<div class="footer-bar"><span>'+esc(PACK.title)+' · '+esc(PACK.author)+'<\/span><span>'+total+' prompts<\/span><\/div>'+
+    '<div class="footer-bar"><span>'+esc(PACK.title)+' \u00b7 '+esc(PACK.author)+'<\/span><span>'+total+' prompts<\/span><\/div>'+
     '<\/body><\/html>';
   var win=window.open('','_blank');
   if(!win){alert('Please allow pop-ups to download the PDF, then try again.');return;}
-  win.document.write(html);
-  win.document.close();
+  win.document.write(html);win.document.close();
   setTimeout(function(){win.focus();win.print();},400);
 }
-
-document.getElementById('subject-input').addEventListener('input',function(){
-  subject=this.value.trim()||PACK.defaultSubject;
-  var hint=document.getElementById('subject-hint');
-  hint.textContent=this.value.trim()?'"'+this.value.trim()+'" applied to all prompts':'replaces the placeholder in every prompt';
-  PACK.categories.forEach(function(cat,ci){
-    cat.prompts.forEach(function(p){
-      var el=document.getElementById('pt-'+p.id);
-      if(el)el.innerHTML=resolveHTML(p.template,ci);
-    });
-  });
-  save();
-});
-
-document.addEventListener('click',function(e){
-  var chip=e.target.closest('.mod-chip');
-  if(chip){toggleMod(parseInt(chip.dataset.ci),parseInt(chip.dataset.mi));return;}
-  var fav=e.target.closest('.btn-fav');
-  if(fav){toggleFav(fav.dataset.pid);return;}
-  var copy=e.target.closest('.btn-copy');
-  if(copy){doCopy(copy.dataset.pid,parseInt(copy.dataset.ci));return;}
-});
-
-function init(){
-  try{load();render();}
-  catch(e){document.getElementById('main').innerHTML='<div style="padding:40px;color:#f55;font-family:monospace">Error: '+e.message+'</div>';}
-}
-document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
-</script>
-</body>
-</html>
