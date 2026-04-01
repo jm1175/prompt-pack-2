@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt pack 2</title>
+<style>
+:root{--bg:#0f1117;--surface:#1c1e2a;--surface2:#252837;--border:#333650;--accent:#7c8bff;--accent2:#f5a623;--text:#e4e6f0;--muted:#787a9a;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;min-height:100vh}
+.hero{padding:48px 24px 32px;border-bottom:1px solid var(--border);background:var(--surface);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 12%,transparent),transparent 70%);pointer-events:none}
+.hero-inner{max-width:860px;margin:0 auto;position:relative}
+.pack-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.pack-title{font-family:var(--display);font-size:clamp(26px,6vw,48px);font-weight:700;line-height:1.15;letter-spacing:-.5px;margin-bottom:10px}
+.pack-tagline{color:var(--muted);font-size:13px;margin-bottom:24px;max-width:520px}
+.pack-stats{display:flex;gap:20px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat-num{font-size:22px;font-weight:600;color:var(--accent);font-family:var(--display);line-height:1}
+.stat-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.controls{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 24px}
+.controls-inner{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.subject-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.subject-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.subject-input{flex:1;min-width:180px;max-width:320px;background:var(--surface);border:1.5px solid var(--border);border-radius:7px;color:var(--accent);font-family:var(--mono);font-size:13px;padding:8px 12px;outline:none;transition:border-color .15s}
+.subject-input:focus{border-color:var(--accent)}
+.subject-input::placeholder{color:var(--muted);font-style:italic}
+.subject-hint{font-size:11px;color:var(--muted);font-style:italic}
+.tabs-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tab{background:none;border:1.5px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.tab:hover{border-color:var(--accent);color:var(--accent)}
+.tab.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:600}
+.badge{background:rgba(0,0,0,.18);border-radius:20px;font-size:10px;padding:1px 6px;line-height:1.4}
+.btn-pdf{margin-left:auto;background:none;border:1.5px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:11px;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.btn-pdf:hover{border-color:var(--accent2);color:var(--accent2)}
+main{max-width:860px;margin:0 auto;padding:28px 24px 100px}
+.category{margin-bottom:40px;animation:fadeUp .35s ease both}
+.category:nth-child(2){animation-delay:.05s}
+.category:nth-child(3){animation-delay:.1s}
+.category:nth-child(4){animation-delay:.15s}
+.category:nth-child(5){animation-delay:.2s}
+.cat-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.cat-name{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);white-space:nowrap}
+.cat-line{flex:1;height:1px;background:var(--border)}
+.cat-count{font-size:10px;color:var(--muted)}
+.modifier-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:12px;padding:9px 12px;background:var(--surface);border-radius:8px;border:1px solid var(--border)}
+.mod-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.mod-chip{background:var(--surface2);border:1.5px solid var(--border);border-radius:20px;color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:11px;padding:3px 11px;transition:all .15s;user-select:none;line-height:1.5}
+.mod-chip:hover{border-color:var(--accent2);color:var(--accent2)}
+.mod-chip.active{background:color-mix(in srgb,var(--accent2) 12%,transparent);border-color:var(--accent2);color:var(--accent2)}
+.prompts-grid{display:grid;gap:8px}
+.prompt-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;transition:border-color .15s,transform .1s}
+.prompt-card:hover{border-color:color-mix(in srgb,var(--border) 50%,var(--accent) 50%);transform:translateY(-1px)}
+.prompt-card.favourited{border-color:color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 4%,var(--surface))}
+.prompt-text{font-size:13px;line-height:1.75;margin-bottom:12px;word-break:break-word;color:var(--text)}
+.subject-hl{color:var(--accent);font-weight:500}
+.modifier-hl{color:var(--accent2);font-style:italic}
+.card-actions{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.btn-fav{background:none;border:1.5px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:13px;padding:5px 9px;line-height:1;transition:all .15s}
+.btn-fav:hover{border-color:var(--accent);color:var(--accent)}
+.btn-fav.active{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.btn-copy{background:var(--surface2);border:1.5px solid var(--border);border-radius:6px;color:var(--text);cursor:pointer;font-family:var(--mono);font-size:11px;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}
+.btn-copy:hover{border-color:var(--accent2);color:var(--accent2)}
+.btn-copy.copied{border-color:var(--accent);color:var(--accent)}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-icon{font-size:32px;margin-bottom:12px}
+.empty-state p{font-size:13px;line-height:1.8}
+footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:10px 24px;text-align:center;font-size:11px;color:var(--muted);z-index:50}
+@media print{.controls,footer,.card-actions,.modifier-row{display:none!important}.hero{background:white;color:black;border:none}.hero::before{display:none}body{background:white;color:black;font-size:11px}.pack-title,.cat-name{color:black}.prompt-card{break-inside:avoid;border:1px solid #ccc;margin-bottom:6px;background:white}.prompt-text{color:#111}.subject-hl{color:#000;font-weight:bold}.modifier-hl{color:#444;font-style:italic}main{padding:0;max-width:100%}.category{margin-bottom:20px}.cat-line{background:#ccc}.cat-name,.cat-count{color:#555}.pack-eyebrow,.pack-tagline,.stat-label{color:#555}.stat-num{color:#000}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.hero{padding:28px 16px 24px}.controls{padding:10px 16px}main{padding:20px 16px 100px}.btn-pdf{margin-left:0}.pack-stats{gap:14px}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <div class="pack-eyebrow" id="hero-eyebrow"></div>
+  <div class="pack-title" id="hero-title"></div>
+  <div class="pack-tagline" id="hero-tagline"></div>
+  <div class="pack-stats" id="hero-stats"></div>
+</div></div>
+<div class="controls"><div class="controls-inner">
+  <div class="subject-row">
+    <span class="subject-label">Your subject</span>
+    <input class="subject-input" id="subject-input" type="text" placeholder="e.g. a sleeping cat" maxlength="60" autocomplete="off" spellcheck="false"/>
+    <span class="subject-hint" id="subject-hint">replaces the placeholder in every prompt</span>
+  </div>
+  <div class="tabs-row">
+    <button class="tab active" data-tab="all" onclick="switchTab('all')">All Prompts</button>
+    <button class="tab" data-tab="favourites" onclick="switchTab('favourites')">&#9733; Favourites <span class="badge" id="fav-badge">0</span></button>
+    <button class="btn-pdf" onclick="exportPDF()">&#8681; PDF</button>
+  </div>
+</div></div>
+<main id="main"></main>
+<footer id="footer"></footer>
+<script>
+var PACK={"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"10 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#0f1117","surface":"#1c1e2a","surface2":"#252837","border":"#333650","accent":"#7c8bff","accent2":"#f5a623","text":"#e4e6f0","muted":"#787a9a"},"categories":[{"name":"Category 1","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of [subject], clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring [subject], white space, bold typography"}]},{"name":"Category 2","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of [subject], clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring [subject], white space, bold typography"}]}]};
+var STORAGE_KEY='pp_'+PACK.id;
+var subject=PACK.defaultSubject,currentTab='all',favourites=new Set(),activeMods={};
+
+function save(){
+  try{
+    var m={};
+    for(var k in activeMods)m[k]=Array.from(activeMods[k]);
+    localStorage.setItem(STORAGE_KEY,JSON.stringify({subject:subject===PACK.defaultSubject?'':subject,favourites:Array.from(favourites),mods:m}));
+  }catch(e){}
+}
+
+function load(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    var s=JSON.parse(raw);
+    if(s.subject){subject=s.subject;document.getElementById('subject-input').value=s.subject;}
+    if(s.favourites)favourites=new Set(s.favourites);
+    if(s.mods){for(var k in s.mods)activeMods[k]=new Set(s.mods[k]);}
+  }catch(e){}
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function resolveText(t,ci){
+  var mods=activeMods[ci]?Array.from(activeMods[ci]):[];
+  var r=t.replace('{subject}',subject||PACK.defaultSubject);
+  if(mods.length)r+=', '+mods.join(', ');
+  return r;
+}
+
+function resolveHTML(t,ci){
+  var mods=activeMods[ci]?Array.from(activeMods[ci]):[];
+  var s=esc(subject||PACK.defaultSubject);
+  var r=t.replace('{subject}','<span class="subject-hl">'+s+'</span>');
+  if(mods.length)r+=', <span class="modifier-hl">'+esc(mods.join(', '))+'</span>';
+  return r;
+}
+
+function render(){applyTheme();renderHero();renderContent();updateBadge();}
+
+function applyTheme(){
+  var r=document.documentElement;
+  var t=PACK.theme;
+  r.style.setProperty('--bg',t.bg);
+  r.style.setProperty('--surface',t.surface);
+  r.style.setProperty('--surface2',t.surface2);
+  r.style.setProperty('--border',t.border);
+  r.style.setProperty('--accent',t.accent);
+  r.style.setProperty('--accent2',t.accent2);
+  r.style.setProperty('--text',t.text);
+  r.style.setProperty('--muted',t.muted);
+  document.title=PACK.title;
+}
+
+function renderHero(){
+  var total=PACK.categories.reduce(function(n,c){return n+c.prompts.length;},0);
+  var mods=PACK.categories.reduce(function(n,c){return n+(c.modifiers||[]).length;},0);
+  document.getElementById('hero-eyebrow').textContent='by '+PACK.author;
+  document.getElementById('hero-title').textContent=PACK.title;
+  document.getElementById('hero-tagline').textContent=PACK.tagline;
+  document.getElementById('hero-stats').innerHTML=
+    '<div class="stat"><span class="stat-num">'+total+'</span><span class="stat-label">Prompts</span></div>'+
+    '<div class="stat"><span class="stat-num">'+PACK.categories.length+'</span><span class="stat-label">Categories</span></div>'+
+    '<div class="stat"><span class="stat-num">'+mods+'</span><span class="stat-label">Modifiers</span></div>';
+  document.getElementById('footer').textContent=PACK.title+' \u00b7 '+PACK.author+' \u00b7 '+total+' prompts';
+}
+
+function renderContent(){
+  var main=document.getElementById('main');
+  main.innerHTML='';
+  if(currentTab==='favourites'){renderFavourites(main);}else{renderAll(main);}
+}
+
+function renderAll(container){
+  PACK.categories.forEach(function(cat,ci){
+    if(!activeMods[ci])activeMods[ci]=new Set();
+    var sec=document.createElement('div');
+    sec.className='category';
+    sec.innerHTML=
+      '<div class="cat-header">'+
+        '<span class="cat-name">'+esc(cat.name)+'</span>'+
+        '<div class="cat-line"></div>'+
+        '<span class="cat-count">'+cat.prompts.length+' prompts</span>'+
+      '</div>'+
+      buildModRow(cat,ci)+
+      '<div class="prompts-grid" id="grid-'+ci+'"></div>';
+    container.appendChild(sec);
+    var grid=sec.querySelector('#grid-'+ci);
+    cat.prompts.forEach(function(p){grid.appendChild(buildCard(p,ci));});
+  });
+}
+
+function buildModRow(cat,ci){
+  if(!cat.modifiers||!cat.modifiers.length)return'';
+  var chips=cat.modifiers.map(function(m,mi){
+    var a=activeMods[ci]&&activeMods[ci].has(m)?'active':'';
+    return '<span class="mod-chip '+a+'" data-ci="'+ci+'" data-mi="'+mi+'">'+esc(m)+'</span>';
+  }).join('');
+  return '<div class="modifier-row"><span class="mod-label">Modifiers</span>'+chips+'</div>';
+}
+
+function buildCard(p,ci){
+  var card=document.createElement('div');
+  card.className='prompt-card'+(favourites.has(p.id)?' favourited':'');
+  card.id='card-'+p.id;
+  var fa=favourites.has(p.id)?'btn-fav active':'btn-fav';
+  card.innerHTML=
+    '<div class="prompt-text" id="pt-'+p.id+'">'+resolveHTML(p.template,ci)+'</div>'+
+    '<div class="card-actions">'+
+      '<button class="'+fa+'" data-pid="'+esc(p.id)+'" title="Favourite">&#9733;</button>'+
+      '<button class="btn-copy" data-pid="'+esc(p.id)+'" data-ci="'+ci+'"><span>Copy</span></button>'+
+    '</div>';
+  return card;
+}
+
+function renderFavourites(container){
+  var favs=[];
+  PACK.categories.forEach(function(cat,ci){
+    cat.prompts.forEach(function(p){
+      if(favourites.has(p.id))favs.push({p:p,ci:ci,cat:cat});
+    });
+  });
+  if(!favs.length){
+    container.innerHTML='<div class="empty-state"><div class="empty-icon">&#9733;</div><p>No favourites yet.<br>Tap the star on any prompt to save it here.</p></div>';
+    return;
+  }
+  var byCat={};
+  favs.forEach(function(item){
+    if(!byCat[item.ci])byCat[item.ci]={cat:item.cat,ci:item.ci,prompts:[]};
+    byCat[item.ci].prompts.push(item.p);
+  });
+  Object.values(byCat).forEach(function(group){
+    if(!activeMods[group.ci])activeMods[group.ci]=new Set();
+    var sec=document.createElement('div');
+    sec.className='category';
+    sec.innerHTML=
+      '<div class="cat-header">'+
+        '<span class="cat-name">'+esc(group.cat.name)+'</span>'+
+        '<div class="cat-line"></div>'+
+        '<span class="cat-count">'+group.prompts.length+' saved</span>'+
+      '</div>'+
+      '<div class="prompts-grid"></div>';
+    var grid=sec.querySelector('.prompts-grid');
+    group.prompts.forEach(function(p){grid.appendChild(buildCard(p,group.ci));});
+    container.appendChild(sec);
+  });
+}
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.tab===tab);});
+  renderContent();
+}
+
+function toggleMod(ci,mi){
+  var mod=PACK.categories[ci].modifiers[mi];
+  if(!activeMods[ci])activeMods[ci]=new Set();
+  if(activeMods[ci].has(mod)){activeMods[ci].delete(mod);}else{activeMods[ci].add(mod);}
+  var grid=document.getElementById('grid-'+ci);
+  if(grid){
+    PACK.categories[ci].prompts.forEach(function(p){
+      var el=document.getElementById('pt-'+p.id);
+      if(el)el.innerHTML=resolveHTML(p.template,ci);
+    });
+    grid.querySelectorAll('.mod-chip').forEach(function(chip){
+      var m=PACK.categories[chip.dataset.ci].modifiers[chip.dataset.mi];
+      chip.classList.toggle('active',activeMods[ci].has(m));
+    });
+  }
+  save();
+}
+
+function toggleFav(id){
+  if(favourites.has(id)){favourites.delete(id);}else{favourites.add(id);}
+  var card=document.getElementById('card-'+id);
+  if(card){
+    card.classList.toggle('favourited',favourites.has(id));
+    var btn=card.querySelector('.btn-fav');
+    if(btn)btn.classList.toggle('active',favourites.has(id));
+  }
+  updateBadge();
+  save();
+  if(currentTab==='favourites')renderContent();
+}
+
+function doCopy(id,ci){
+  var template='';
+  PACK.categories.forEach(function(cat){
+    var p=cat.prompts.find(function(x){return x.id===id;});
+    if(p)template=p.template;
+  });
+  var text=resolveText(template,ci);
+  var btn=document.querySelector('.btn-copy[data-pid="'+id+'"]');
+  var span=btn?btn.querySelector('span'):null;
+  var finish=function(){
+    if(btn)btn.classList.add('copied');
+    if(span)span.textContent='Copied!';
+    setTimeout(function(){if(btn)btn.classList.remove('copied');if(span)span.textContent='Copy';},1800);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(finish).catch(function(){fallbackCopy(text,finish);});
+  }else{fallbackCopy(text,finish);}
+}
+
+function fallbackCopy(text,cb){
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.cssText='position:fixed;opacity:0;top:0;left:0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);cb();
+}
+
+function updateBadge(){document.getElementById('fav-badge').textContent=favourites.size;}
+function exportPDF(){setTimeout(function(){window.print();},100);}
+
+document.getElementById('subject-input').addEventListener('input',function(){
+  subject=this.value.trim()||PACK.defaultSubject;
+  var hint=document.getElementById('subject-hint');
+  hint.textContent=this.value.trim()?'"'+this.value.trim()+'" applied to all prompts':'replaces the placeholder in every prompt';
+  PACK.categories.forEach(function(cat,ci){
+    cat.prompts.forEach(function(p){
+      var el=document.getElementById('pt-'+p.id);
+      if(el)el.innerHTML=resolveHTML(p.template,ci);
+    });
+  });
+  save();
+});
+
+document.addEventListener('click',function(e){
+  var chip=e.target.closest('.mod-chip');
+  if(chip){toggleMod(parseInt(chip.dataset.ci),parseInt(chip.dataset.mi));return;}
+  var fav=e.target.closest('.btn-fav');
+  if(fav){toggleFav(fav.dataset.pid);return;}
+  var copy=e.target.closest('.btn-copy');
+  if(copy){doCopy(copy.dataset.pid,parseInt(copy.dataset.ci));return;}
+});
+
+function init(){
+  try{load();render();}
+  catch(e){document.getElementById('main').innerHTML='<div style="padding:40px;color:#f55;font-family:monospace">Error: '+e.message+'</div>';}
+}
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+</script>
+</body>
+</html>
