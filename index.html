@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt pack 2</title>
 <style>
-:root{--bg:#0e130f;--surface:#141d15;--surface2:#1c281d;--border:#2a3d2c;--accent:#5de888;--accent2:#a8f0c6;--text:#e0ede2;--muted:#607060;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
+:root{--bg:#f5f3ee;--surface:#ffffff;--surface2:#f0ede6;--border:#e0dbd0;--accent:#1a1a1a;--accent2:#5c6ac4;--text:#1a1a1a;--muted:#888880;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;min-height:100vh}
@@ -94,7 +94,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(-
 <main id="main"></main>
 <footer id="footer"></footer>
 <script>
-var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#0e130f","surface":"#141d15","surface2":"#1c281d","border":"#2a3d2c","accent":"#5de888","accent2":"#a8f0c6","text":"#e0ede2","muted":"#607060"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"http://tmpfiles.org/dl/31758805/image.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"http://tmpfiles.org/dl/31755980/image.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":[],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
+var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#f5f3ee","surface":"#ffffff","surface2":"#f0ede6","border":"#e0dbd0","accent":"#1a1a1a","accent2":"#5c6ac4","text":"#1a1a1a","muted":"#888880"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"https://diplo-media.s3.eu-central-1.amazonaws.com/2025/04/midjourney-v7-AI-model-1024x576.jpg","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"https://diplo-media.s3.eu-central-1.amazonaws.com/2025/04/midjourney-v7-AI-model-1024x576.jpg","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":[],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
 var STORAGE_KEY = 'pp_' + PACK.id;
 var subject = PACK.defaultSubject;
 var currentTab = 'all';
@@ -369,9 +369,9 @@ function exportPDF() {
     var pdfInfoHTML = '';
     if ((cat.image&&cat.image.trim())||(cat.notes&&cat.notes.trim())||(cat.tags&&cat.tags.length)) {
       pdfInfoHTML = '<div class="cat-info">';
-      if (cat.image&&cat.image.trim()) pdfInfoHTML += '<img class="cat-image" src="'+esc(cat.image)+'" alt="">';
+      if (cat.tags&&cat.tags.length)  pdfInfoHTML += '<div class="cat-tags">'+cat.tags.map(function(t,i,a){return '<span class="cat-tag">'+esc(t)+(i<a.length-1?' · ':'')+' </span>';}).join('')+'</div>';
       if (cat.notes&&cat.notes.trim()) pdfInfoHTML += '<div class="cat-notes">'+esc(cat.notes)+'</div>';
-      if (cat.tags&&cat.tags.length)  pdfInfoHTML += '<div class="cat-tags">'+cat.tags.map(function(t){return '<span class="cat-tag">'+esc(t)+'</span>';}).join('')+'</div>';
+      if (cat.image&&cat.image.trim()) pdfInfoHTML += '<img class="cat-image" src="'+esc(cat.image)+'" alt="">';
       pdfInfoHTML += '</div>';
     }
     rows += '<div class="cat-section"><div class="cat-head"><span class="cat-name">' + esc(cat.name) + '</span><span class="cat-count">' + group.prompts.length + ' prompt' + (group.prompts.length !== 1 ? 's' : '') + (currentTab === 'favourites' ? ' saved' : '') + '</span></div>' + pdfInfoHTML + modHTML +
@@ -401,6 +401,8 @@ function exportPDF() {
     '.mod-label{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:' + t.muted + ';white-space:nowrap;margin-right:2px}' +
     '.mod-chip{background:' + t.surface2 + ';border:1px solid ' + t.border + ';border-radius:20px;font-size:9px;padding:2px 8px;color:' + t.muted + '}' +
     '.mod-chip.active{border-color:' + t.accent2 + ';color:' + t.accent2 + ';background:' + t.surface + '}' +
+    '.cat-tag{font-size:9px;letter-spacing:.05em;color:' + t.muted + '}' +
+    '.cat-image{max-width:260px;width:100%;border-radius:6px;margin-bottom:6px;object-fit:contain;background:' + t.surface2 + ';border:1px solid ' + t.border + ';display:block}' +
     '.prompt-row{background:' + t.surface + ';border:1px solid ' + t.border + ';border-radius:6px;padding:8px 11px;margin-bottom:5px;font-size:11px;color:' + t.text + ';break-inside:avoid;line-height:1.6}' +
     '.footer-bar{position:fixed;bottom:0;left:0;right:0;font-size:9px;color:' + t.muted + ';border-top:1px solid ' + t.border + ';padding:5px 16mm;display:flex;justify-content:space-between;background:' + t.bg + '}' +
     '</style></head><body>' +
