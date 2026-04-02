@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt pack 2</title>
 <style>
-:root{--bg:#18120e;--surface:#221810;--surface2:#2c2018;--border:#3d2e22;--accent:#f5a623;--accent2:#ff7055;--text:#f0e8de;--muted:#8a7060;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
+:root{--bg:#140d10;--surface:#1e1218;--surface2:#281822;--border:#3d2030;--accent:#ff6b9d;--accent2:#ffb3d0;--text:#f0e0e8;--muted:#907080;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;min-height:100vh}
@@ -67,7 +67,7 @@ main{max-width:860px;margin:0 auto;padding:28px 24px 100px}
 .empty-icon{font-size:32px;margin-bottom:12px}
 .empty-state p{font-size:13px;line-height:1.8}
 footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--border);padding:10px 24px;text-align:center;font-size:11px;color:var(--muted);z-index:50}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.pack-intro{color:var(--muted);font-size:12px;line-height:1.7;margin-bottom:20px;max-width:600px;white-space:pre-line}.cat-info{margin-bottom:10px;padding:10px 14px;background:var(--surface);border-radius:8px;border:1px solid var(--border);display:flex;flex-direction:column;gap:7px}.cat-notes{font-size:12px;color:var(--muted);line-height:1.65;white-space:pre-line}.cat-tags{display:flex;flex-wrap:wrap;gap:5px;align-items:center}.cat-tag{background:var(--surface2);border:1px solid var(--border);border-radius:4px;font-size:10px;letter-spacing:.04em;padding:2px 8px;color:var(--muted)}.cat-image{width:100%;border-radius:8px;margin-bottom:2px;object-fit:cover;max-height:220px;border:1px solid var(--border);display:block}@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:600px){.hero{padding:28px 16px 24px}.controls{padding:10px 16px}main{padding:20px 16px 100px}.btn-pdf{margin-left:0}.pack-stats{gap:14px}}
 @media print{.hero::before{display:none!important}.controls,.card-actions,footer{display:none!important}.modifier-row{display:flex!important}}</style>
 </head>
@@ -76,6 +76,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(-
   <div class="pack-eyebrow" id="hero-eyebrow"></div>
   <div class="pack-title" id="hero-title"></div>
   <div class="pack-tagline" id="hero-tagline"></div>
+  <div class="pack-intro" id="hero-intro" style="display:none"></div>
   <div class="pack-stats" id="hero-stats"></div>
 </div></div>
 <div class="controls"><div class="controls-inner">
@@ -93,7 +94,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(-
 <main id="main"></main>
 <footer id="footer"></footer>
 <script>
-var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#18120e","surface":"#221810","surface2":"#2c2018","border":"#3d2e22","accent":"#f5a623","accent2":"#ff7055","text":"#f0e8de","muted":"#8a7060"},"categories":[{"name":"Category 1","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"New Category","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
+var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#140d10","surface":"#1e1218","surface2":"#281822","border":"#3d2030","accent":"#ff6b9d","accent2":"#ffb3d0","text":"#f0e0e8","muted":"#907080"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"http://tmpfiles.org/dl/31758805/image.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"http://tmpfiles.org/dl/31755980/image.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":[],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
 var STORAGE_KEY = 'pp_' + PACK.id;
 var subject = PACK.defaultSubject;
 var currentTab = 'all';
@@ -188,6 +189,7 @@ function renderAll(container) {
         '<div class="cat-line"></div>' +
         '<span class="cat-count">' + cat.prompts.length + ' prompts</span>' +
       '</div>' +
+      buildInfoBlock(cat) +
       buildModRow(cat, ci) +
       '<div class="prompts-grid" id="grid-' + ci + '"></div>';
     container.appendChild(sec);
@@ -196,6 +198,17 @@ function renderAll(container) {
   });
 }
 
+function buildInfoBlock(cat) {
+  var hasNotes = cat.notes && cat.notes.trim();
+  var hasTags  = cat.tags  && cat.tags.length;
+  var hasImage = cat.image && cat.image.trim();
+  if (!hasNotes && !hasTags && !hasImage) return '';
+  var parts = '';
+  if (hasImage) parts += '<img class="cat-image" src="' + esc(cat.image) + '" alt="" loading="lazy">';
+  if (hasNotes) parts += '<div class="cat-notes">' + esc(cat.notes) + '</div>';
+  if (hasTags)  parts += '<div class="cat-tags">' + cat.tags.map(function(t) { return '<span class="cat-tag">' + esc(t) + '</span>'; }).join('') + '</div>';
+  return '<div class="cat-info">' + parts + '</div>';
+}
 function buildModRow(cat, ci) {
   if (!cat.modifiers || !cat.modifiers.length) return '';
   var chips = cat.modifiers.map(function(m, mi) {
@@ -346,7 +359,15 @@ function exportPDF() {
           return '<span class="mod-chip' + (isActive ? ' active' : '') + '">' + esc(m) + '</span>';
         }).join('') + '</div>';
     }
-    rows += '<div class="cat-section"><div class="cat-head"><span class="cat-name">' + esc(cat.name) + '</span><span class="cat-count">' + group.prompts.length + ' prompt' + (group.prompts.length !== 1 ? 's' : '') + (currentTab === 'favourites' ? ' saved' : '') + '</span></div>' + modHTML +
+    var pdfInfoHTML = '';
+    if ((cat.image&&cat.image.trim())||(cat.notes&&cat.notes.trim())||(cat.tags&&cat.tags.length)) {
+      pdfInfoHTML = '<div class="cat-info">';
+      if (cat.image&&cat.image.trim()) pdfInfoHTML += '<img class="cat-image" src="'+esc(cat.image)+'" alt="">';
+      if (cat.notes&&cat.notes.trim()) pdfInfoHTML += '<div class="cat-notes">'+esc(cat.notes)+'</div>';
+      if (cat.tags&&cat.tags.length)  pdfInfoHTML += '<div class="cat-tags">'+cat.tags.map(function(t){return '<span class="cat-tag">'+esc(t)+'</span>';}).join('')+'</div>';
+      pdfInfoHTML += '</div>';
+    }
+    rows += '<div class="cat-section"><div class="cat-head"><span class="cat-name">' + esc(cat.name) + '</span><span class="cat-count">' + group.prompts.length + ' prompt' + (group.prompts.length !== 1 ? 's' : '') + (currentTab === 'favourites' ? ' saved' : '') + '</span></div>' + pdfInfoHTML + modHTML +
       group.prompts.map(function(p) { return '<div class="prompt-row">' + esc(resolveText(p.template, ci)) + '</div>'; }).join('') +
       '</div>';
   });
@@ -380,6 +401,7 @@ function exportPDF() {
       '<div class="pack-eyebrow">by ' + esc(PACK.author) + '</div>' +
       '<div class="pack-title">' + esc(PACK.title) + (isFav ? '<span class="fav-badge">\u2605 Favourites</span>' : '') + '</div>' +
       (PACK.tagline ? '<div class="pack-tagline">' + esc(PACK.tagline) + subjectNote + '</div>' : (subjectNote ? '<div class="pack-tagline">' + subjectNote.slice(3) + '</div>' : '')) +
+      (PACK.intro ? '<div class="pack-intro">' + esc(PACK.intro) + '</div>' : '') +
       '<div class="pack-stats">' +
         '<div><div class="stat-num">' + total + '</div><div class="stat-label">' + (isFav ? 'Saved' : 'Prompts') + '</div></div>' +
         '<div><div class="stat-num">' + printCats.length + '</div><div class="stat-label">Categories</div></div>' +
