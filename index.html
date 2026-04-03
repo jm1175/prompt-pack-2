@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt pack 2</title>
 <style>
-:root{--bg:#f5f3ee;--surface:#ffffff;--surface2:#f0ede6;--border:#e0dbd0;--accent:#d22d2d;--accent2:#5c6ac4;--text:#1a1a1a;--muted:#888880;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
+:root{--bg:#f5f3ee;--surface:#ffffff;--surface2:#f0ede6;--border:#e0dbd0;--accent:#1a1a1a;--accent2:#5c6ac4;--text:#1a1a1a;--muted:#888880;--accent-contrast:#ffffff;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;min-height:100vh}
@@ -30,8 +30,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14
 .tabs-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .tab{background:none;border:1.5px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}
 .tab:hover{border-color:var(--accent);color:var(--accent)}
-.tab.active{background:var(--accent);border-color:var(--accent);color:#000;font-weight:600}
-.badge{background:rgba(0,0,0,.18);border-radius:20px;font-size:10px;padding:1px 6px;line-height:1.4}
+.tab.active{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast);font-weight:600}
+.badge{background:rgba(128,128,128,.25);border-radius:20px;font-size:10px;padding:1px 6px;line-height:1.4}
 .btn-pdf{margin-left:auto;background:none;border:1.5px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:11px;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}
 .btn-pdf:hover{border-color:var(--accent2);color:var(--accent2)}
 main{max-width:860px;margin:0 auto;padding:28px 24px 100px}
@@ -87,18 +87,18 @@ footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(-
   </div>
   <div class="tabs-row">
     <button class="tab active" data-tab="all" onclick="switchTab('all')">All Prompts</button>
-    <button class="tab" data-tab="favourites" onclick="switchTab('favourites')">&#9733; Favourites <span class="badge" id="fav-badge">0</span></button>
+    <button class="tab" data-tab="favorites" onclick="switchTab('favorites')">&#9733; Favorites <span class="badge" id="fav-badge">0</span></button>
     <button class="btn-pdf" onclick="exportPDF()">&#8681; PDF</button>
   </div>
 </div></div>
 <main id="main"></main>
 <footer id="footer"></footer>
 <script>
-var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#f5f3ee","surface":"#ffffff","surface2":"#f0ede6","border":"#e0dbd0","accent":"#d22d2d","accent2":"#5c6ac4","text":"#1a1a1a","muted":"#888880"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"https://substackcdn.com/image/fetch/$s_!ZwPD!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F915d1517-9dd9-4b77-844d-59a6356bf7b9_1456x816.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"https://www.actuia.com/storage/uploads/2022/09/oeuvre-art-generee-IA-MidJourney-remporte-1er-prix-Colorado-State-Fair-696x385.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":["chatgpt","illustrated"],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
+var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#f5f3ee","surface":"#ffffff","surface2":"#f0ede6","border":"#e0dbd0","accent":"#1a1a1a","accent2":"#5c6ac4","text":"#1a1a1a","muted":"#888880"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"https://substackcdn.com/image/fetch/$s_!ZwPD!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F915d1517-9dd9-4b77-844d-59a6356bf7b9_1456x816.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"https://www.actuia.com/storage/uploads/2022/09/oeuvre-art-generee-IA-MidJourney-remporte-1er-prix-Colorado-State-Fair-696x385.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":["chatgpt","illustrated"],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]},{"name":"New Category","notes":"","tags":[],"image":"","modifiers":[],"prompts":[{"id":"mnij85wp5x2t","template":"{subject}, detailed, high quality"}]}]};
 var STORAGE_KEY = 'pp_' + PACK.id;
 var subject = PACK.defaultSubject;
 var currentTab = 'all';
-var favourites = new Set();
+var favorites = new Set();
 var activeMods = {};
 
 function save() {
@@ -107,7 +107,7 @@ function save() {
     for (var k in activeMods) m[k] = Array.from(activeMods[k]);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       subject: subject === PACK.defaultSubject ? '' : subject,
-      favourites: Array.from(favourites),
+      favorites: Array.from(favorites),
       mods: m
     }));
   } catch(e) {}
@@ -119,7 +119,7 @@ function load() {
     if (!raw) return;
     var s = JSON.parse(raw);
     if (s.subject) { subject = s.subject; document.getElementById('subject-input').value = s.subject; }
-    if (s.favourites) favourites = new Set(s.favourites);
+    if (s.favorites) favorites = new Set(s.favorites);
     if (s.mods) { for (var k in s.mods) activeMods[k] = new Set(s.mods[k]); }
   } catch(e) {}
 }
@@ -154,6 +154,11 @@ function applyTheme() {
   r.style.setProperty('--border', t.border);
   r.style.setProperty('--accent', t.accent);
   r.style.setProperty('--accent2', t.accent2);
+  // Set contrast colour for text on accent backgrounds
+  var ac = t.accent.replace('#','');
+  var ar=parseInt(ac.slice(0,2),16)/255, ag=parseInt(ac.slice(2,4),16)/255, ab=parseInt(ac.slice(4,6),16)/255;
+  var lum = 0.299*ar + 0.587*ag + 0.114*ab;
+  r.style.setProperty('--accent-contrast', lum > 0.5 ? '#000000' : '#ffffff');
   r.style.setProperty('--text', t.text);
   r.style.setProperty('--muted', t.muted);
   document.title = PACK.title;
@@ -180,7 +185,7 @@ function renderHero() {
 function renderContent() {
   var main = document.getElementById('main');
   main.innerHTML = '';
-  if (currentTab === 'favourites') { renderFavourites(main); } else { renderAll(main); }
+  if (currentTab === 'favorites') { renderFavorites(main); } else { renderAll(main); }
 }
 
 function renderAll(container) {
@@ -227,27 +232,27 @@ function buildModRow(cat, ci) {
 
 function buildCard(p, ci) {
   var card = document.createElement('div');
-  card.className = 'prompt-card' + (favourites.has(p.id) ? ' favourited' : '');
+  card.className = 'prompt-card' + (favorites.has(p.id) ? ' favourited' : '');
   card.id = 'card-' + p.id;
-  var fa = favourites.has(p.id) ? 'btn-fav active' : 'btn-fav';
+  var fa = favorites.has(p.id) ? 'btn-fav active' : 'btn-fav';
   card.innerHTML =
     '<div class="prompt-text" id="pt-' + p.id + '">' + resolveHTML(p.template, ci) + '</div>' +
     '<div class="card-actions">' +
-      '<button class="' + fa + '" data-pid="' + esc(p.id) + '" title="Favourite">&#9733;</button>' +
+      '<button class="' + fa + '" data-pid="' + esc(p.id) + '" title="Favorite">&#9733;</button>' +
       '<button class="btn-copy" data-pid="' + esc(p.id) + '" data-ci="' + ci + '"><span>Copy</span></button>' +
     '</div>';
   return card;
 }
 
-function renderFavourites(container) {
+function renderFavorites(container) {
   var favs = [];
   PACK.categories.forEach(function(cat, ci) {
     cat.prompts.forEach(function(p) {
-      if (favourites.has(p.id)) favs.push({p:p, ci:ci, cat:cat});
+      if (favorites.has(p.id)) favs.push({p:p, ci:ci, cat:cat});
     });
   });
   if (!favs.length) {
-    container.innerHTML = '<div class="empty-state"><div class="empty-icon">&#9733;</div><p>No favourites yet.<br>Tap the star on any prompt to save it here.</p></div>';
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">&#9733;</div><p>No favorites yet.<br>Tap the star on any prompt to save it here.</p></div>';
     return;
   }
   var byCat = {};
@@ -301,16 +306,16 @@ function toggleMod(ci, mi) {
 }
 
 function toggleFav(id) {
-  if (favourites.has(id)) { favourites.delete(id); } else { favourites.add(id); }
+  if (favorites.has(id)) { favorites.delete(id); } else { favorites.add(id); }
   var card = document.getElementById('card-' + id);
   if (card) {
-    card.classList.toggle('favourited', favourites.has(id));
+    card.classList.toggle('favourited', favorites.has(id));
     var btn = card.querySelector('.btn-fav');
-    if (btn) btn.classList.toggle('active', favourites.has(id));
+    if (btn) btn.classList.toggle('active', favorites.has(id));
   }
   updateBadge();
   save();
-  if (currentTab === 'favourites') renderContent();
+  if (currentTab === 'favorites') renderContent();
 }
 
 function doCopy(id, ci) {
@@ -340,15 +345,15 @@ function fallbackCopy(text, cb) {
   document.body.removeChild(ta); cb();
 }
 
-function updateBadge() { document.getElementById('fav-badge').textContent = favourites.size; }
+function updateBadge() { document.getElementById('fav-badge').textContent = favorites.size; }
 
 function exportPDF() {
   var printCats = [];
-  if (currentTab === 'favourites') {
+  if (currentTab === 'favorites') {
     var byCat = {};
     PACK.categories.forEach(function(cat, ci) {
       cat.prompts.forEach(function(p) {
-        if (favourites.has(p.id)) {
+        if (favorites.has(p.id)) {
           if (!byCat[ci]) byCat[ci] = {cat:cat, ci:ci, prompts:[]};
           byCat[ci].prompts.push(p);
         }
@@ -378,13 +383,13 @@ function exportPDF() {
       if (cat.image&&cat.image.trim()) pdfInfoHTML += '<img class="cat-image" src="'+esc(cat.image)+'" alt="">';
       pdfInfoHTML += '</div>';
     }
-    rows += '<div class="cat-section"><div class="cat-head"><span class="cat-name">' + esc(cat.name) + '</span><span class="cat-count">' + group.prompts.length + ' prompt' + (group.prompts.length !== 1 ? 's' : '') + (currentTab === 'favourites' ? ' saved' : '') + '</span></div>' + pdfInfoHTML + modHTML +
+    rows += '<div class="cat-section"><div class="cat-head"><span class="cat-name">' + esc(cat.name) + '</span><span class="cat-count">' + group.prompts.length + ' prompt' + (group.prompts.length !== 1 ? 's' : '') + (currentTab === 'favorites' ? ' saved' : '') + '</span></div>' + pdfInfoHTML + modHTML +
       group.prompts.map(function(p) { return '<div class="prompt-row">' + esc(resolveText(p.template, ci)) + '</div>'; }).join('') +
       '</div>';
   });
   var t = PACK.theme;
   var subjectNote = subject && subject !== PACK.defaultSubject ? ' \u00b7 subject: "' + esc(subject) + '"' : '';
-  var isFav = currentTab === 'favourites';
+  var isFav = currentTab === 'favorites';
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + esc(PACK.title) + '</title><style>' +
     '@page{margin:0}' +
     '*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
@@ -415,7 +420,7 @@ function exportPDF() {
     '</style></head><body>' +
     '<div class="header">' +
       '<div class="pack-eyebrow">by ' + esc(PACK.author) + '</div>' +
-      '<div class="pack-title">' + esc(PACK.title) + (isFav ? '<span class="fav-badge">\u2605 Favourites</span>' : '') + '</div>' +
+      '<div class="pack-title">' + esc(PACK.title) + (isFav ? '<span class="fav-badge">\u2605 Favorites</span>' : '') + '</div>' +
       (PACK.tagline ? '<div class="pack-tagline">' + esc(PACK.tagline) + subjectNote + '</div>' : (subjectNote ? '<div class="pack-tagline">' + subjectNote.slice(3) + '</div>' : '')) +
       (PACK.intro ? '<div class="pack-intro">' + esc(PACK.intro) + '</div>' : '') +
       '<div class="pack-stats">' +
