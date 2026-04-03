@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt pack 2</title>
 <style>
-:root{--bg:#111111;--surface:#1a1a1a;--surface2:#222222;--border:#333333;--accent:#ffffff;--accent2:#aaaaaa;--text:#eeeeee;--muted:#666666;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
+:root{--bg:#f5f3ee;--surface:#ffffff;--surface2:#f0ede6;--border:#e0dbd0;--accent:#1a1a1a;--accent2:#5c6ac4;--text:#1a1a1a;--muted:#888880;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;min-height:100vh}
@@ -94,7 +94,7 @@ footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(-
 <main id="main"></main>
 <footer id="footer"></footer>
 <script>
-var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#111111","surface":"#1a1a1a","surface2":"#222222","border":"#333333","accent":"#ffffff","accent2":"#aaaaaa","text":"#eeeeee","muted":"#666666"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"https://substackcdn.com/image/fetch/$s_!ZwPD!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F915d1517-9dd9-4b77-844d-59a6356bf7b9_1456x816.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"https://www.actuia.com/storage/uploads/2022/09/oeuvre-art-generee-IA-MidJourney-remporte-1er-prix-Colorado-State-Fair-696x385.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":[],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
+var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#f5f3ee","surface":"#ffffff","surface2":"#f0ede6","border":"#e0dbd0","accent":"#1a1a1a","accent2":"#5c6ac4","text":"#1a1a1a","muted":"#888880"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"https://substackcdn.com/image/fetch/$s_!ZwPD!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F915d1517-9dd9-4b77-844d-59a6356bf7b9_1456x816.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"https://www.actuia.com/storage/uploads/2022/09/oeuvre-art-generee-IA-MidJourney-remporte-1er-prix-Colorado-State-Fair-696x385.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":["chatgpt","illustrated"],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]}]};
 var STORAGE_KEY = 'pp_' + PACK.id;
 var subject = PACK.defaultSubject;
 var currentTab = 'all';
@@ -222,7 +222,7 @@ function buildModRow(cat, ci) {
     var a = activeMods[ci] && activeMods[ci].has(m) ? 'active' : '';
     return '<span class="mod-chip ' + a + '" data-ci="' + ci + '" data-mi="' + mi + '">' + esc(m) + '</span>';
   }).join('');
-  return '<div class="modifier-row"><span class="mod-label">Modifiers</span>' + chips + '</div>';
+  return '<div class="modifier-row" id="modrow-' + ci + '"><span class="mod-label">Modifiers</span>' + chips + '</div>';
 }
 
 function buildCard(p, ci) {
@@ -288,8 +288,12 @@ function toggleMod(ci, mi) {
       var el = document.getElementById('pt-' + p.id);
       if (el) el.innerHTML = resolveHTML(p.template, ci);
     });
-    grid.querySelectorAll('.mod-chip').forEach(function(chip) {
-      var m = PACK.categories[parseInt(chip.dataset.ci)].modifiers[parseInt(chip.dataset.mi)];
+  }
+  // Update chip states — chips are siblings of grid, so search the parent category section
+  var modRow = document.getElementById('modrow-' + ci);
+  if (modRow) {
+    modRow.querySelectorAll('.mod-chip').forEach(function(chip) {
+      var m = PACK.categories[ci].modifiers[parseInt(chip.dataset.mi)];
       chip.classList.toggle('active', activeMods[ci].has(m));
     });
   }
@@ -382,7 +386,8 @@ function exportPDF() {
   var subjectNote = subject && subject !== PACK.defaultSubject ? ' \u00b7 subject: "' + esc(subject) + '"' : '';
   var isFav = currentTab === 'favourites';
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + esc(PACK.title) + '</title><style>' +
-    '@page{margin:0}' +
+    '@page{margin:0 16mm 12mm}' +
+    '@page :first{margin:0}' +
     '*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
     'body{background:' + t.bg + ';color:' + t.text + ';font-family:ui-monospace,"SF Mono","Cascadia Mono","Fira Mono",monospace;font-size:11px;line-height:1.6;padding:14mm 16mm 20mm}' +
     '.header{border-bottom:2.5px solid ' + t.accent + ';padding-bottom:14px;margin-bottom:20px}' +
