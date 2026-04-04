@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt pack 2</title>
 <style>
-:root{--bg:#140d10;--surface:#1e1218;--surface2:#281822;--border:#3d2030;--accent:#ff6b9d;--accent2:#ffb3d0;--text:#f0e0e8;--muted:#907080;--accent-contrast:#ffffff;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
+:root{--bg:#0e0e10;--surface:#17171b;--surface2:#1f1f25;--border:#2e2e38;--accent:#c8f135;--accent2:#3df5c1;--text:#e8e8ed;--muted:#7a7a8c;--accent-contrast:#ffffff;--radius:10px;--mono:ui-monospace,'SF Mono','Cascadia Mono','Fira Mono',monospace;--display:'Georgia','Times New Roman',serif}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.6;min-height:100vh}
@@ -32,7 +32,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:14
 .tab:hover{border-color:var(--accent);color:var(--accent)}
 .tab.active{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast);font-weight:600}
 .badge{background:rgba(128,128,128,.25);border-radius:20px;font-size:10px;padding:1px 6px;line-height:1.4}
-.btn-pdf{margin-left:auto;background:none;border:1.5px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:11px;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}.btn-pdf:first-of-type{margin-left:auto}.btn-pdf+.btn-pdf{margin-left:0}.info-hidden .cat-info{display:none!important}.btn-info-active{border-color:var(--accent2)!important;color:var(--accent2)!important}
+.btn-pdf{margin-left:auto;background:none;border:1.5px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:11px;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}.btn-info{background:color-mix(in srgb,var(--accent2) 10%,transparent);border:1.5px solid var(--accent2);border-radius:6px;color:var(--accent2);cursor:pointer;font-family:var(--mono);font-size:11px;padding:5px 14px;transition:all .15s;display:flex;align-items:center;gap:5px}.btn-info.info-off{background:none;border-color:var(--border);color:var(--muted)}.btn-info.info-off:hover{border-color:var(--accent2);color:var(--accent2)}.info-hidden .cat-info{display:none!important}
 .btn-pdf:hover{border-color:var(--accent2);color:var(--accent2)}
 main{max-width:860px;margin:0 auto;padding:28px 24px 100px}
 .category{margin-bottom:40px;animation:fadeUp .35s ease both}
@@ -89,13 +89,13 @@ footer{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(-
     <button class="tab active" data-tab="all" onclick="switchTab('all')">All Prompts</button>
     <button class="tab" data-tab="favorites" onclick="switchTab('favorites')">&#9733; Favorites <span class="badge" id="fav-badge">0</span></button>
     <button class="btn-pdf" onclick="exportPDF()">&#8681; PDF</button>
-    <button class="btn-pdf" id="btn-toggle-info" onclick="toggleInfo()" title="Show or hide category info blocks">&#9432; Info</button>
+    <button class="btn-info" id="btn-toggle-info" onclick="toggleInfo()" title="Hide category info">&#9432; Info</button>
   </div>
 </div></div>
 <main id="main"></main>
 <footer id="footer"></footer>
 <script>
-var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#140d10","surface":"#1e1218","surface2":"#281822","border":"#3d2030","accent":"#ff6b9d","accent2":"#ffb3d0","text":"#f0e0e8","muted":"#907080"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"https://substackcdn.com/image/fetch/$s_!ZwPD!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F915d1517-9dd9-4b77-844d-59a6356bf7b9_1456x816.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"https://www.actuia.com/storage/uploads/2022/09/oeuvre-art-generee-IA-MidJourney-remporte-1er-prix-Colorado-State-Fair-696x385.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":["chatgpt","illustrated"],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]},{"name":"New Category","notes":"","tags":[],"image":"","modifiers":[],"prompts":[{"id":"mnij85wp5x2t","template":"{subject}, detailed, high quality"}]},{"name":"New Category","notes":"","tags":[],"image":"","modifiers":[],"prompts":[{"id":"mnikkpsxc63r","template":"{subject}, detailed, high quality"}]}]};
+var PACK = {"id":"mnffzvt2a05p","title":"Prompt pack 2","tagline":"11 ready to use prompts.","author":"ShapeShift","defaultSubject":"[subject]","theme":{"bg":"#0e0e10","surface":"#17171b","surface2":"#1f1f25","border":"#2e2e38","accent":"#c8f135","accent2":"#3df5c1","text":"#e8e8ed","muted":"#7a7a8c"},"intro":"This prompt pack is designed specifically for Midjourney. All prompts are best used for landscaped images.","categories":[{"name":"Category 1","notes":"Works best in midjourney v6. For best results keep the subject simple and avoid over-complicating the details.","tags":["midjourney","landscape","illustrated"],"image":"https://substackcdn.com/image/fetch/$s_!ZwPD!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F915d1517-9dd9-4b77-844d-59a6356bf7b9_1456x816.png","modifiers":["modifier one","modifier two"],"prompts":[{"id":"mnffzvt2urvb","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnffzvt2d75a","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 2","notes":"For best results keep the subject simple and avoid over-complicating the details.","tags":["nano banana","chatgpt"],"image":"https://www.actuia.com/storage/uploads/2022/09/oeuvre-art-generee-IA-MidJourney-remporte-1er-prix-Colorado-State-Fair-696x385.png","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfg11thhprg","template":"A detailed illustration of {subject}, clean lines, vivid colours"},{"id":"mnfg19snp0pe","template":"Minimalist design featuring {subject}, white space, bold typography"}]},{"name":"Category 3","notes":"","tags":["chatgpt","illustrated"],"image":"","modifiers":["mod 1","mod 2"],"prompts":[{"id":"mnfipnirmhkc","template":"A detailed illustration of {subject}, clean lines, vivid colours"}]},{"name":"New Category","notes":"","tags":[],"image":"","modifiers":[],"prompts":[{"id":"mnij85wp5x2t","template":"{subject}, detailed, high quality"}]},{"name":"New Category","notes":"","tags":[],"image":"","modifiers":[],"prompts":[{"id":"mnikkpsxc63r","template":"{subject}, detailed, high quality"}]}]};
 var STORAGE_KEY = 'pp_' + PACK.id;
 var subject = PACK.defaultSubject;
 var currentTab = 'all';
@@ -109,8 +109,9 @@ function toggleInfo() {
   if (main) main.classList.toggle('info-hidden', !infoVisible);
   var btn = document.getElementById('btn-toggle-info');
   if (btn) {
-    btn.classList.toggle('btn-info-active', !infoVisible);
-    btn.title = infoVisible ? 'Hide category info blocks' : 'Show category info blocks';
+    btn.classList.toggle('info-off', !infoVisible);
+    btn.title = infoVisible ? 'Hide category info' : 'Show category info';
+    btn.innerHTML = (infoVisible ? '&#9432;' : '&#9432;') + ' Info';
   }
 }
 
